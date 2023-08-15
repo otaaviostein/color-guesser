@@ -4,23 +4,28 @@ import {
 	STORAGE_HIGH_SCORE,
 	TIME_LIMIT,
 	STORAGE_LATEST_GAME,
-	initialState
 } from '../util/constants'
 import { gameReducer } from '../reducers/gameReducer'
+
+
+const initialState: GameStatus = {
+	timeLimit: TIME_LIMIT,
+	isStarted: false,
+	handleStart: () => {},
+	handleReset: () => {},
+	handleResetAllData: () => {},
+	handleCalculateScore: (status: GameStatusScore, isTimeout?: boolean) => {},
+	highScore: 0,
+	score: 0,
+	totalTimeRemaining: 0,
+	timeLine: [],
+};
+
 
 export const GameProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(gameReducer, initialState)
 
-	const { 
-		timeLine, 
-		highScore, 
-		totalTimeRemaining,
-		isStarted,
-		score,
-		moveTime,
-		gameOptions,
-		backgroundColor,
-		gameLevel } = state
+	const { timeLine, highScore, totalTimeRemaining, isStarted, score } = state
 
 
 	useEffect(() => {
@@ -125,10 +130,6 @@ export const GameProvider = ({ children }: any) => {
 				timeLimit: TIME_LIMIT,
 				totalTimeRemaining,
 				timeLine,
-				moveTime,
-				gameOptions,
-				backgroundColor,
-				gameLevel
 			}}
 		>
 			{children}

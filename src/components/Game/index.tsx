@@ -1,23 +1,22 @@
-import React, { useContext, useEffect, useReducer } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { GameContext } from '../../context/gameContext'
 import styles from '../../styles/Game/styles.module.scss'
 import { generateOptions } from '../../util/helpers'
-import { DEFAULT_MOVE_TIME, initialState } from '../../util/constants'
-import { gameReducer } from '../../reducers/gameReducer'
+import { DEFAULT_MOVE_TIME } from '../../util/constants'
 
 const Game = () => {
-
-	const [state, dispatch] = useReducer(gameReducer, initialState)
+	const [moveTime, setMoveTime] = React.useState(DEFAULT_MOVE_TIME)
+	const [gameOptions, setGameOptions] = React.useState<GameOptions[]>([])
+	const [backgroundColor, setBackgroundColor] = React.useState('')
+	const [gameLevel, setGameLevel] = React.useState<GameLevel>(4)
 	const app = useContext(GameContext)
-
-	const { moveTime, gameOptions, backgroundColor, gameLevel } = state
 
 	const handleStart = () => {
 		app.handleStart(true)
 	}
 
 	const handleGameLevel = (gameLevel: GameLevel = 4) => {
-		dispatch({ type: 'SET_GAME_LEVEL', payload: gameLevel })
+		setGameLevel(gameLevel)
 		handleStart()
 	}
 
@@ -27,27 +26,24 @@ const Game = () => {
 			correctColor,
 			timeSpent: DEFAULT_MOVE_TIME - moveTime,
 		})
-		
-		dispatch({ type: 'SET_GAME_OPTIONS', payload: generateOptions(gameLevel) })
-		
-		dispatch({ type: 'SET_MOVE_TIME', payload: 10 })
+		setGameOptions(generateOptions(gameLevel))
+		setMoveTime(10)
 	}
 
 	useEffect(() => {
 		if (app.isStarted) {
-			dispatch({ type: 'SET_GAME_OPTIONS', payload: generateOptions(gameLevel) })
+			setGameOptions(generateOptions(gameLevel))
 		}
 	}, [app.isStarted])
 
 	useEffect(() => {
-		if (app.isStarted && app.totalTimeRemaining < 30) dispatch({ type: 'SET_MOVE_TIME', payload: moveTime - 1 })
-		
+		if (app.isStarted && app.totalTimeRemaining < 30) setMoveTime(moveTime - 1)
 	}, [app.totalTimeRemaining])
 
 	useEffect(() => {
 		if (gameOptions.length > 0) {
-			const correct = gameOptions.filter(({ isCorrect }: GameOptions) => isCorrect)
-			dispatch({ type: 'SET_BACKGROUND_COLOR', payload: correct[0].color })
+			const correct = gameOptions.filter(({ isCorrect }) => isCorrect)
+			setBackgroundColor(correct[0].color)
 		}
 	}, [gameOptions])
 
@@ -58,8 +54,8 @@ const Game = () => {
 				true
 			)
 			if (app.isStarted) {
-				dispatch({ type: 'SET_GAME_OPTIONS', payload: generateOptions(gameLevel) })
-				dispatch({ type: 'SET_MOVE_TIME', payload: 10 })
+				setGameOptions(generateOptions(gameLevel))
+				setMoveTime(10)
 			}
 		}
 	}, [moveTime])
@@ -83,7 +79,7 @@ const Game = () => {
 			</div>
 			{app.isStarted && gameOptions.length > 0 && (
 				<div className={styles.gamebuttons}>
-					{gameOptions.map(({ color }: GameOptions, i: number) => (
+					{gameOptions.map(({ color }, i) => (
 						<button
 							data-testid="color-button"
 							key={i + color}

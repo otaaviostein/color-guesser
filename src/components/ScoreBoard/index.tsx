@@ -5,7 +5,6 @@ import styles from '../../styles/GameBoard/styles.module.scss'
 const ScoreBoard = () => {
 	const app = useContext(GameContext)
 	const [progressBarSize, setProgressBarSize] = React.useState(100)
-
 	const handleRestart = () => {
 		app.handleReset()
 	}

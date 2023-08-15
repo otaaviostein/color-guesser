@@ -8,22 +8,13 @@ type Action =
   | { type: 'START_GAME'; payload: boolean }
   | { type: 'SET_GAME_LEVEL'; payload: GameLevel }
   | { type: 'SET_TIME_LINE'; payload: TimeLine[] }
-  | { type: 'SET_MOVE_TIME'; payload: number }
-  | { type: 'SET_GAME_OPTIONS'; payload: GameOptions[] }
-  | { type: 'SET_BACKGROUND_COLOR'; payload: string }
-  | { type: 'SET_GAME_LEVEL'; payload: GameLevel }
   | { type: 'HANDLE_SCORE'; payload: number };
 
 export const gameReducer = (state: GameStatus, action: Action): GameStatus => {
   switch (action.type) {
-    case 'SET_MOVE_TIME':
-      return { ...state, moveTime: action.payload }
-    case 'SET_GAME_OPTIONS':
-      return { ...state, gameOptions: action.payload }
-    case 'SET_BACKGROUND_COLOR':
-      return { ...state, backgroundColor: action.payload }
-    case 'SET_GAME_LEVEL':
-      return { ...state, gameLevel: action.payload }
+    case 'SET_SCORE':
+      return { ...state, score: action.payload }
+    
     case 'SET_HIGH_SCORE':
       return { ...state, highScore: action.payload }
     case 'SET_TIME_LINE':
