@@ -2,26 +2,12 @@ import React, { useContext, useEffect, useReducer } from 'react'
 import { GameContext } from '../context/gameContext'
 import styles from '../styles/Game/styles.module.scss'
 import { generateOptions } from '../util/helpers'
-import { DEFAULT_MOVE_TIME, TIME_LIMIT } from '../util/constants'
+import { DEFAULT_MOVE_TIME } from '../util/constants'
 import LevelButtons from './LevelButtons'
 import ColorButtons from './ColorButtons'
 import { gameReducer } from '../reducers/gameReducer'
+import { initialState } from '../util/initialState'
 
-const initialState: GameStatus = {
-	timeLimit: TIME_LIMIT,
-	isStarted: false,
-	handleStart: () => {},
-	handleReset: () => {},
-	handleResetAllData: () => {},
-	handleCalculateScore: (status: GameStatusScore, isTimeout?: boolean) => {},
-	highScore: 0,
-	score: 0,
-	totalTimeRemaining: 0,
-	timeLine: [],
-	moveTime: 0,
-	gameOptions: [],
-	backgroundColor: ''
-};
 
 const Game = () => {
 	const [state, dispatch] = useReducer(gameReducer, initialState)

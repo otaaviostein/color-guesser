@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useReducer } from 'react'
+import { useCallback, useEffect, useReducer } from 'react'
 import { GameContext } from '../context/gameContext'
 import {
 	STORAGE_HIGH_SCORE,
@@ -6,24 +6,7 @@ import {
 	STORAGE_LATEST_GAME,
 } from '../util/constants'
 import { gameReducer } from '../reducers/gameReducer'
-
-
-const initialState: GameStatus = {
-	timeLimit: TIME_LIMIT,
-	isStarted: false,
-	handleStart: () => {},
-	handleReset: () => {},
-	handleResetAllData: () => {},
-	handleCalculateScore: (status: GameStatusScore, isTimeout?: boolean) => {},
-	highScore: 0,
-	score: 0,
-	totalTimeRemaining: 0,
-	timeLine: [],
-	moveTime: 0,
-	gameOptions: [],
-	backgroundColor: ''
-};
-
+import { initialState } from '../util/initialState'
 
 export const GameProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(gameReducer, initialState)
