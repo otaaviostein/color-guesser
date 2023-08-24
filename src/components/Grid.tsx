@@ -1,14 +1,13 @@
 import React, { useContext } from 'react'
-import styles from '../../styles/Grid/styles.module.scss'
-import game from '../../styles/GameBoard/styles.module.scss'
-import Results from '../Results'
-import ScoreBoard from '../ScoreBoard'
-import Game from '../Game'
-import { GameContext } from '../../context/gameContext'
+import styles from '../styles/Grid/styles.module.scss'
+import game from '../styles/GameBoard/styles.module.scss'
+import Results from './Results'
+import ScoreBoard from './ScoreBoard'
+import Game from './Game'
+import { GameContext } from '../context/gameContext'
 
 const Grid = () => {
 	const { handleResetAllData } = useContext(GameContext)
-
 	const handleClick = () => {
 		handleResetAllData()
 	}

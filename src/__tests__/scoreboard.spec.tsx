@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import ScoreBoard from './index';
+import ScoreBoard from '../components/ScoreBoard';
 
 const mockContextValue = {
   timeLimit: 30,
@@ -38,7 +38,7 @@ describe('ScoreBoard component', () => {
 
   it('renders remaining time correctly', () => {
     const { getByText } = render(<ScoreBoard />);
-    const remainingTime = getByText('Remaining time (s)');
+    const remainingTime = getByText('Remaining time');
     const timeValue = getByText('30');
     
     expect(remainingTime).toBeInTheDocument();

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
-import { GameContext } from '../../context/gameContext'
-import styles from '../../styles/GameBoard/styles.module.scss'
+import { GameContext } from '../context/gameContext'
+import styles from '../styles/GameBoard/styles.module.scss'
 
 const ScoreBoard = () => {
 	const app = useContext(GameContext)
@@ -20,16 +20,16 @@ const ScoreBoard = () => {
 		<>
 			<div className={styles.gamescore}>
 				<div className={styles.remaining}>
-					<p>Remaining time (s) </p>
+					<p>Remaining time</p>
 					<span
 						style={{ color: app.totalTimeRemaining < 10 ? 'red' : 'black' }}
 					>
 						{app.totalTimeRemaining}
 					</span>
 				</div>
-				<p className={styles.restart} onClick={handleRestart}>
+				<button className={styles.restart} onClick={handleRestart} disabled={!app.isStarted}>
 					Restart
-				</p>
+				</button>
 				<div className={styles.score}>
 					<p>High Score</p>
 					<span>{app.highScore}</span>

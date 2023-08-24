@@ -1,7 +1,7 @@
 import { act, fireEvent, getAllByTestId, render, screen } from '@testing-library/react';
 
-import Game from './index'
-import { GameProvider } from '../../providers/gameProvider';
+import Game from '../components/Game'
+import { GameProvider } from '../providers/gameProvider';
 import React from 'react';
 
 const mockContextValue = {

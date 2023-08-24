@@ -19,19 +19,21 @@ const initialState: GameStatus = {
 	score: 0,
 	totalTimeRemaining: 0,
 	timeLine: [],
+	moveTime: 0,
+	gameOptions: [],
+	backgroundColor: ''
 };
 
 
 export const GameProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(gameReducer, initialState)
-
-	const { timeLine, highScore, totalTimeRemaining, isStarted, score } = state
-
+	const { timeLine, highScore, totalTimeRemaining, isStarted, score, moveTime,
+	gameOptions, backgroundColor } = state
 
 	useEffect(() => {
 		const storageValue = localStorage.getItem(STORAGE_HIGH_SCORE) ?? '0'
 		const latestGameFromStorage = localStorage.getItem(STORAGE_LATEST_GAME)
-
+		
 		if (storageValue === '0')
 			localStorage.setItem(STORAGE_HIGH_SCORE, storageValue)
 
@@ -46,32 +48,29 @@ export const GameProvider = ({ children }: any) => {
 	useEffect(() => {
 		if (isStarted) {
 			dispatch({ type: 'SET_TOTAL_TIME_REMAINING', payload: TIME_LIMIT });
-			
 			dispatch({ type: 'SET_SCORE', payload: 0 });
-			
 			dispatch({ type: 'SET_TIME_LINE', payload: [] });
 		} else {
-			
 			dispatch({ type: 'SET_TOTAL_TIME_REMAINING', payload: 0 });
 
-			if (timeLine.length > 0)
-				localStorage.setItem(STORAGE_LATEST_GAME, JSON.stringify(timeLine))
 		}
 	}, [isStarted])
 
+	
 	useEffect(() => {
-		let timer: NodeJS.Timer
-
-		if (isStarted) {
-			timer = setInterval(() => {
-				
-				dispatch({ type: 'DECREMENT_TOTAL_TIME_REMAINING' });
-			}, 1000)
-			if (totalTimeRemaining === 0) dispatch({ type: 'RESET_GAME', payload: 0 });
+		if (!isStarted) return
+		
+		const timer = setInterval(() => {
+			dispatch({ type: 'DECREMENT_TOTAL_TIME_REMAINING' })
+		}, 1000)
+		if (totalTimeRemaining === 0) {
+			clearInterval(timer);
+			dispatch({ type: 'RESET_GAME', payload: 0 })
 		}
-
+		
 		return () => clearInterval(timer)
-	}, [totalTimeRemaining])
+	}, [totalTimeRemaining, isStarted])
+
 
 	useEffect(() => {
 		if (score > highScore) {
@@ -83,20 +82,20 @@ export const GameProvider = ({ children }: any) => {
 
 	const handleScore = (score: number) => {
 		dispatch({ type: 'HANDLE_SCORE', payload: score });
-		
 	}
 
 	const handleStart = (isStarted: boolean) => {
-		
+		dispatch({ type: 'SET_TOTAL_TIME_REMAINING', payload: TIME_LIMIT });
+		dispatch({ type: 'SET_SCORE', payload: 0 });
+		dispatch({ type: 'SET_TIME_LINE', payload: [] });
 		dispatch({ type: 'START_GAME', payload: isStarted });
 	}
 
 	const handleReset = () => {
 		dispatch({ type: 'END_GAME' })
-		
+		dispatch({ type: 'SET_TOTAL_TIME_REMAINING', payload: 0 });
 		dispatch({ type: 'SET_TIME_LINE', payload: [] });
-		dispatch({ type: 'RESET_GAME', payload: 0 });
-		
+		dispatch({ type: 'RESET_GAME', payload: 0 });	
 	}
 
 	const handleResetAllData = () => {
@@ -130,6 +129,9 @@ export const GameProvider = ({ children }: any) => {
 				timeLimit: TIME_LIMIT,
 				totalTimeRemaining,
 				timeLine,
+				moveTime,
+				gameOptions,
+				backgroundColor
 			}}
 		>
 			{children}

@@ -9,6 +9,10 @@ interface GameStatus {
 	timeLimit: number
 	totalTimeRemaining: number
 	timeLine: TimeLine[]
+	moveTime: number
+	backgroundColor: string
+	gameOptions: GameOptions[],
+	gameLevel?: GameLevel
 }
 
 interface GameStatusScore {

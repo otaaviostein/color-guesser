@@ -83,6 +83,10 @@ $table-border: #9CA4AE;
         &:hover {
             filter: brightness(0.9);
         }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
     }
 
     .score {
