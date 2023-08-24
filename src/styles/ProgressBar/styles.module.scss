@@ -1,0 +1,16 @@
+.progress {
+	margin-top: 1rem;
+	background-color: #E5E9F1;
+	transition: 0.1s;
+
+	>span {
+		height: 0.25rem;
+		width: 100%;
+		display: block;
+		background-color: #8290A3;
+		&:before {
+			content: "\200D";
+			display: inline;
+		}
+	}
+}

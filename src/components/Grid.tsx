@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import styles from '../styles/Grid/styles.module.scss'
-import game from '../styles/GameBoard/styles.module.scss'
 import Results from './Results'
 import ScoreBoard from './ScoreBoard'
 import Game from './Game'
@@ -18,7 +17,7 @@ const Grid = () => {
 				<Results />
 			</section>
 			<section className={styles.rightpanel}>
-				<div className={game.gameboard}>
+				<div className={styles.gameboard}>
 					<h1>Guess the color</h1>
 					<ScoreBoard />
 					<Game />

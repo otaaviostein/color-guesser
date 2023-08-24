@@ -1,4 +1,4 @@
-import styles from '../styles/Results/styles.module.scss';
+import styles from '../styles/ResultsRow/styles.module.scss';
 import contrastChecker from '../util/helpers';
 
 interface ResultsRowProps {

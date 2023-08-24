@@ -1,24 +1,47 @@
-.leftpanel {
-    background-color: #ECEFF5;
-}
+$primary: #48525D;
+$bg-restart: #D2D7DF;
+$table-border: #9CA4AE;
 
-.rightpanel {
-    display: flex;
-
-    .resetdata {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bolder;
-        text-decoration: underline;
-        align-self: flex-end;
-        color: #4B5560;
-        margin-left: auto;
-        padding: 1rem;
-        cursor: pointer;
-    }
-}
 
 .maingrid {
-    display: grid;
-    grid-template-columns: 0.25fr auto;
-    height: 100vh;
+	display: grid;
+	grid-template-columns: 0.25fr auto;
+	height: 100vh;
+
+	.leftpanel {
+		background-color: #ECEFF5;
+	}
+
+	.rightpanel {
+    display: flex;
+
+		.gameboard {
+			min-width: 27rem;
+			margin-left: auto;
+			margin-top: 4rem;
+			font-family: 'Source Code Pro', sans-serif;
+		
+			h1 {
+				color: $primary;
+				text-align: center;
+				margin-bottom: 5rem;
+			}
+		}
+
+    .resetdata {
+			font-family: 'Montserrat', sans-serif;
+			font-weight: bolder;
+			text-decoration: underline;
+			align-self: flex-end;
+			color: #4B5560;
+			margin-left: auto;
+			padding: 1rem;
+			cursor: pointer;
+    }
+	}
+
 }
+
+
+
+

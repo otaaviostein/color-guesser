@@ -1,0 +1,29 @@
+.levelButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 50%;
+
+  >button {
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    background-color: #34383d;
+    padding: 1rem;
+    transition: 0.5s;
+    border-radius: 0.5rem;
+    border: none;
+
+    &:hover:first-child {
+        background-color: #226F54;
+    }
+
+    &:hover:nth-child(2) {
+        background-color: #E28413;
+    }
+
+    &:hover:last-child {
+        background-color: #C42847;
+    }
+  }
+}

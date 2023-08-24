@@ -1,46 +1,13 @@
-import React, { useContext, useEffect } from 'react'
-import { GameContext } from '../context/gameContext'
-import styles from '../styles/GameBoard/styles.module.scss'
+import ScoreDetails from './ScoreDetails';
+import ProgressBar from './ProgressBar';
 
 const ScoreBoard = () => {
-	const app = useContext(GameContext)
-	const [progressBarSize, setProgressBarSize] = React.useState(100)
-	const handleRestart = () => {
-		app.handleReset()
-	}
+  return (
+    <>
+      <ScoreDetails />
+      <ProgressBar />
+    </>
+  );
+};
 
-	useEffect(() => {
-		const remainingTime = Math.floor(
-			(100 * app.totalTimeRemaining) / app.timeLimit
-		)
-		setProgressBarSize(remainingTime)
-	}, [app.totalTimeRemaining])
-
-	return (
-		<>
-			<div className={styles.gamescore}>
-				<div className={styles.remaining}>
-					<p>Remaining time</p>
-					<span
-						style={{ color: app.totalTimeRemaining < 10 ? 'red' : 'black' }}
-					>
-						{app.totalTimeRemaining}
-					</span>
-				</div>
-				<button className={styles.restart} onClick={handleRestart} disabled={!app.isStarted}>
-					Restart
-				</button>
-				<div className={styles.score}>
-					<p>High Score</p>
-					<span>{app.highScore}</span>
-					<p>Score</p>
-					<span>{app.score}</span>
-				</div>
-			</div>
-			<div className={styles.progress}>
-				<span style={{ width: `${progressBarSize}%` }}></span>
-			</div>
-		</>
-	)
-}
-export default ScoreBoard
+export default ScoreBoard;

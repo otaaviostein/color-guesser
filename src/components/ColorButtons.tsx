@@ -1,4 +1,4 @@
-import styles from '../styles/Game/styles.module.scss';
+import styles from '../styles/ColorButtons/styles.module.scss';
 
 interface ColorButtonsProps {
   gameOptions: GameOptions[];
